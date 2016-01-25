@@ -45,13 +45,14 @@ void loop() {
 			currentState = 1;
 		} else if (currentState == 1) {
 			// flying time is gone, time to landing
-			for (curThrottle = 0; curThrottle >= 0; curThrottle -= 10) {
-				if (curThrottle < 0) {
-					curThrottle = 0;
-				}
+			for (curThrottle = maxThrottle; curThrottle > 0; curThrottle -= 10) {
 				esc.write(curThrottle);
 				delay(10);
 			}
+			if (curThrottle < 0) {
+				curThrottle = 0;
+			}
+			esc.write(curThrottle);
 			currentState = 2;
 		} else {
 			// done
