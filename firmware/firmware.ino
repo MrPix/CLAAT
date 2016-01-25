@@ -40,6 +40,10 @@ void loop() {
 				esc.write(curThrottle);
 				delay(10);
 			}
+			if (curThrottle < maxThrottle) {
+				curThrottle = maxThrottle;
+			}
+			esc.write(curThrottle);
 			currentInterval = flyingTime;
 			previousMillis = millis();
 			currentState = 1;
