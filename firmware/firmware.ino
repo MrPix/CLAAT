@@ -2,7 +2,7 @@
 // create servo object to control a servo
 Servo esc;
 
-int maxThrottle = 180;
+int maxThrottle = 120;
 
 int curThrottle = 0;
 
@@ -12,9 +12,9 @@ unsigned long previousMillis = 0;
 unsigned long currentInterval = 0;
 
 // time to prepare (milliseconds)
-const long prepareTime = 120000; // 1000ms * 60sec * 2min
+const long prepareTime = 30000;
 // time to fly (milliseconds)
-const long flyingTime = 240000;	// 1000ms * 60sec * 4min
+const long flyingTime = 90000;
 
 /*
 	Current state
@@ -36,9 +36,9 @@ void loop() {
 	if (currentMillis - previousMillis >= currentInterval) {
 		if (currentState == 0) {
 			// we are ready to fly, throttle max!
-			for (curThrottle = 0; curThrottle <= maxThrottle; curThrottle += 10) {
+			for (curThrottle = 0; curThrottle <= maxThrottle; curThrottle += 1) {
 				esc.write(curThrottle);
-				delay(10);
+				delay(20); // Throlle up delay
 			}
 			if (curThrottle < maxThrottle) {
 				curThrottle = maxThrottle;
@@ -49,9 +49,9 @@ void loop() {
 			currentState = 1;
 		} else if (currentState == 1) {
 			// flying time is gone, time to landing
-			for (curThrottle = maxThrottle; curThrottle > 0; curThrottle -= 10) {
+			for (curThrottle = maxThrottle; curThrottle > 0; curThrottle -= 1) {
 				esc.write(curThrottle);
-				delay(10);
+				delay(100);// Throlle down delay
 			}
 			if (curThrottle < 0) {
 				curThrottle = 0;
