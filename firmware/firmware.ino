@@ -26,7 +26,7 @@ int currentState = 0;
 
 void setup() {
 	// attaches the servo on pin 9 to the servo object
-	esc.attach(9);
+	esc.attach(9, 1000, 2000);
 	esc.write(curThrottle);
 	currentInterval = prepareTime;
 }
